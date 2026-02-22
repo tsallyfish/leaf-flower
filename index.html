@@ -15,48 +15,22 @@
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400&display=swap');
-        
         body { font-family: 'Noto Sans TC', sans-serif; background-color: #f0f2f0; padding-bottom: 50px; -webkit-tap-highlight-color: transparent; }
         .serif { font-family: 'Noto Serif TC', serif; }
-        
-        /* A4 比例容器 */
-        .a4-container { 
-            width: 210mm; min-height: 297mm; padding: 40px; margin: 20px auto; 
-            background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
-            display: flex; flex-direction: column; position: relative;
-        }
-
-        /* 標籤按鈕樣式 */
-        .tag-btn {
-            border: 1px solid #d1d5db; padding: 8px 12px; border-radius: 8px;
-            font-size: 0.75rem; transition: all 0.2s; background: white; cursor: pointer;
-            display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2;
-            min-width: 85px;
-        }
+        .a4-container { width: 210mm; min-height: 297mm; padding: 40px; margin: 20px auto; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; position: relative; }
+        .tag-btn { border: 1px solid #d1d5db; padding: 8px 12px; border-radius: 8px; font-size: 0.75rem; transition: all 0.2s; background: white; cursor: pointer; display: flex; flex-direction: column; align-items: flex-start; line-height: 1.2; min-width: 85px; }
         .tag-btn .lang-extra { color: #059669; font-weight: bold; font-size: 0.7rem; }
         .tag-btn.active { background-color: #065f46 !important; color: white !important; border-color: #065f46; }
         .tag-btn.active .lang-extra { color: #a7f3d0 !important; }
-
-        /* 輸入框樣式 */
-        .input-field { 
-            border-bottom: 1px solid #d4d4d8; width: 100%; padding: 8px 0; 
-            outline: none; background: transparent; font-size: 1rem; line-height: 1.5;
-        }
-
-        /* 解決截圖切掉問題的隱藏文字層 */
+        .input-field { border-bottom: 1px solid #d4d4d8; width: 100%; padding: 8px 0; outline: none; background: transparent; font-size: 1rem; line-height: 1.5; }
         .capture-text { display: none; font-size: 1.1rem; font-weight: 500; color: #1a1a1a; padding: 8px 0; border-bottom: 1px solid transparent; }
         .is-capturing .input-field { display: none; }
         .is-capturing .capture-text { display: block; }
         .is-capturing select { display: none; }
-
         .lang-label { font-size: 0.75rem; color: #71717a; margin-top: 10px; display: block; font-weight: bold; }
         .extra-lang { color: #059669; }
         .hint-text { font-size: 0.75rem; color: #ea580c; margin-top: 4px; font-weight: 500; }
-
-        @media (max-width: 768px) { 
-            .a4-container { width: 98%; padding: 15px; margin: 5px auto; min-height: auto; }
-            .no-print { position: static; width: 100%; }
-        }
+        @media (max-width: 768px) { .a4-container { width: 98%; padding: 15px; margin: 5px auto; min-height: auto; } }
     </style>
 </head>
 <body>
@@ -69,16 +43,14 @@
                 <option value="jp">日本語 (JP)</option>
                 <option value="kr">한국어 (KR)</option>
                 <option value="vn">Tiếng Việt (VN)</option>
+                <option value="id">Indonesia (ID)</option>
                 <option value="th">ไทย (TH)</option>
             </select>
         </div>
-        <button onclick="generateImage()" class="bg-emerald-700 text-white px-8 py-2 rounded-full hover:bg-emerald-800 transition shadow-lg active:scale-95 font-bold">
-            生成訂單圖片
-        </button>
+        <button onclick="generateImage()" class="bg-emerald-700 text-white px-8 py-2 rounded-full hover:bg-emerald-800 transition shadow-lg active:scale-95 font-bold">生成訂單圖片</button>
     </div>
 
     <div id="capture-area" class="a4-container border-t-[12px] border-emerald-800">
-        
         <div class="flex justify-between items-start mb-8">
             <div class="flex items-center gap-4">
                 <div class="w-16 h-16 bg-emerald-800 rounded-xl flex items-center justify-center text-white serif text-2xl shadow-inner">葉</div>
@@ -97,45 +69,20 @@
             <section class="space-y-4">
                 <h2 class="text-emerald-800 font-bold border-b border-emerald-100 pb-1 text-sm">顧客與時間 / CUSTOMER & TIME</h2>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="input-wrapper">
-                        <label class="lang-label">姓名 Name <span class="extra-lang" data-key="name"></span></label>
-                        <input type="text" class="input-field" placeholder="點擊輸入">
-                        <div class="capture-text"></div>
-                    </div>
-                    <div class="input-wrapper">
-                        <label class="lang-label">手機 Phone <span class="extra-lang" data-key="phone"></span></label>
-                        <input type="tel" class="input-field" placeholder="09xx-xxx-xxx">
-                        <div class="capture-text"></div>
-                    </div>
+                    <div class="input-wrapper"><label class="lang-label">姓名 Name <span class="extra-lang" data-key="name"></span></label><input type="text" class="input-field" placeholder="點擊填寫"><div class="capture-text"></div></div>
+                    <div class="input-wrapper"><label class="lang-label">手機 Phone <span class="extra-lang" data-key="phone"></span></label><input type="tel" class="input-field" placeholder="09xx..."><div class="capture-text"></div></div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="input-wrapper">
-                        <label class="lang-label">取貨日期 Date <span class="extra-lang" data-key="date"></span></label>
-                        <input type="date" class="input-field">
-                        <div class="capture-text"></div>
-                    </div>
-                    <div class="input-wrapper">
-                        <label class="lang-label">時間 Time <span class="extra-lang" data-key="time"></span></label>
-                        <select id="time-select" class="input-field font-mono"></select>
-                        <div class="capture-text"></div>
-                    </div>
+                    <div class="input-wrapper"><label class="lang-label">取貨日期 Date <span class="extra-lang" data-key="date"></span></label><input type="date" class="input-field"><div class="capture-text"></div></div>
+                    <div class="input-wrapper"><label class="lang-label">時間 Time <span class="extra-lang" data-key="time"></span></label><select id="time-select" class="input-field font-mono"></select><div class="capture-text"></div></div>
                 </div>
-                <div>
-                    <label class="lang-label">星期 Day <span class="extra-lang" data-key="day_label"></span></label>
-                    <div class="flex flex-wrap gap-2 mt-2" id="day-tags"></div>
-                </div>
+                <div><label class="lang-label">星期 Day <span class="extra-lang" data-key="day_label"></span></label><div class="flex flex-wrap gap-2 mt-2" id="day-tags"></div></div>
             </section>
 
             <section class="space-y-4">
                 <h2 class="text-emerald-800 font-bold border-b border-emerald-100 pb-1 text-sm">對象與目的 / PURPOSE</h2>
-                <div>
-                    <label class="lang-label">收禮對象 Recipient <span class="extra-lang" data-key="target_label"></span></label>
-                    <div class="flex flex-wrap gap-2 mt-2" id="target-tags"></div>
-                </div>
-                <div>
-                    <label class="lang-label">送花目的 Purpose <span class="extra-lang" data-key="purpose_label"></span></label>
-                    <div class="flex flex-wrap gap-2 mt-2" id="purpose-tags"></div>
-                </div>
+                <div><label class="lang-label">收禮對象 Recipient <span class="extra-lang" data-key="target_label"></span></label><div class="flex flex-wrap gap-2 mt-2" id="target-tags"></div></div>
+                <div><label class="lang-label">送花目的 Purpose <span class="extra-lang" data-key="purpose_label"></span></label><div class="flex flex-wrap gap-2 mt-2" id="purpose-tags"></div></div>
             </section>
 
             <section class="md:col-span-2 space-y-4">
@@ -151,14 +98,8 @@
                         </div>
                     </div>
                     <div class="space-y-4">
-                        <div>
-                            <label class="lang-label">花藝色系 Flower Color <span class="extra-lang" data-key="fcolor_label"></span></label>
-                            <div class="flex flex-wrap gap-1 mt-2" id="fcolor-tags"></div>
-                        </div>
-                        <div>
-                            <label class="lang-label">包裝色系 Wrapping Color <span class="extra-lang" data-key="wcolor_label"></span></label>
-                            <div class="flex flex-wrap gap-1 mt-2" id="wcolor-tags"></div>
-                        </div>
+                        <div><label class="lang-label">花藝色系 Flower Color <span class="extra-lang" data-key="fcolor_label"></span></label><div class="flex flex-wrap gap-1 mt-2" id="fcolor-tags"></div></div>
+                        <div><label class="lang-label">包裝色系 Wrapping Color <span class="extra-lang" data-key="wcolor_label"></span></label><div class="flex flex-wrap gap-1 mt-2" id="wcolor-tags"></div></div>
                     </div>
                 </div>
             </section>
@@ -166,21 +107,9 @@
             <section class="md:col-span-2 bg-gray-50 p-4 rounded-xl border border-gray-100">
                 <h2 class="text-emerald-800 font-bold border-b border-emerald-100 pb-1 text-sm">付款資訊 / PAYMENT</h2>
                 <div class="grid grid-cols-3 gap-6">
-                    <div class="input-wrapper">
-                        <label class="lang-label">總價 Total</label>
-                        <input type="number" id="price-total" class="input-field text-lg font-bold" oninput="calcBalance()">
-                        <div class="capture-text font-bold"></div>
-                    </div>
-                    <div class="input-wrapper">
-                        <label class="lang-label">訂金 Deposit</label>
-                        <input type="number" id="price-deposit" class="input-field text-lg text-blue-600" oninput="calcBalance()">
-                        <div class="capture-text text-blue-600"></div>
-                    </div>
-                    <div class="input-wrapper">
-                        <label class="lang-label text-red-600 font-bold italic">餘額 Balance / <span class="extra-lang" data-key="balance"></span></label>
-                        <input type="text" id="price-balance" class="input-field text-xl font-bold text-red-600" readonly>
-                        <div class="capture-text text-red-600 font-bold"></div>
-                    </div>
+                    <div class="input-wrapper"><label class="lang-label">總價 Total</label><input type="number" id="price-total" class="input-field text-lg font-bold" oninput="calcBalance()"><div class="capture-text font-bold"></div></div>
+                    <div class="input-wrapper"><label class="lang-label">訂金 Deposit</label><input type="number" id="price-deposit" class="input-field text-lg text-blue-600" oninput="calcBalance()"><div class="capture-text text-blue-600"></div></div>
+                    <div class="input-wrapper"><label class="lang-label text-red-600 font-bold italic">餘額 Balance / <span class="extra-lang" data-key="balance"></span></label><input type="text" id="price-balance" class="input-field text-xl font-bold text-red-600" readonly><div class="capture-text text-red-600 font-bold"></div></div>
                 </div>
                 <div class="pt-3 border-t border-gray-200 mt-2">
                     <div class="text-[10px] leading-relaxed text-emerald-800 font-medium">
@@ -194,129 +123,57 @@
 
         <div class="mt-6 p-4 bg-emerald-50/30 rounded-xl border border-emerald-100 flex-grow input-wrapper">
             <label class="lang-label font-bold text-emerald-800 mb-1">備註/特殊需求 Remarks <span class="extra-lang" data-key="note"></span></label>
-            <textarea class="w-full bg-transparent border-none outline-none h-32 resize-none text-sm input-field" placeholder="輸入細節 / Input more details..."></textarea>
+            <textarea class="w-full bg-transparent border-none outline-none h-32 resize-none text-sm input-field" placeholder="輸入細節 / Input details..."></textarea>
             <div class="capture-text whitespace-pre-wrap"></div>
         </div>
-
-        <footer class="mt-8 text-center border-t border-dashed pt-4">
-            <p class="text-[10px] text-emerald-700/60 serif tracking-[0.3em]">LEAF FLOWER DESIGN · 讓植物走入你的生活</p>
-        </footer>
+        <footer class="mt-8 text-center border-t border-dashed pt-4"><p class="text-[10px] text-emerald-700/60 serif tracking-[0.3em]">LEAF FLOWER DESIGN · 讓植物走入你的生活</p></footer>
     </div>
 
     <script>
-        // --- 翻譯與標籤數據 ---
         const config = {
-            day: [{zh:'一',en:'Mon',jp:'月',kr:'월',vn:'Thứ 2',th:'จันทร์'},{zh:'二',en:'Tue',jp:'火',kr:'화',vn:'Thứ 3',th:'อังคาร'},{zh:'三',en:'Wed',jp:'水',kr:'수',vn:'Thứ 4',th:'พุธ'},{zh:'四',en:'Thu',jp:'木',kr:'목',vn:'Thứ 5',th:'พฤหัส'},{zh:'五',en:'Fri',jp:'金',kr:'금',vn:'Thứ 6',th:'ศุกร์'},{zh:'六',en:'Sat',jp:'土',kr:'토',vn:'Thứ 7',th:'เสาร์'},{zh:'日',en:'Sun',jp:'日',kr:'일',vn:'CN',th:'อาทิตย์'}],
-            target: [{zh:'男生',en:'Male',jp:'男性',kr:'남성',vn:'Nam',th:'ผู้ชาย'},{zh:'女生',en:'Female',jp:'女性',kr:'여성',vn:'Nữ',th:'ผู้หญิง'},{zh:'大人',en:'Adult',jp:'大人',kr:'성인',vn:'Người lớn',th:'ผู้ใหญ่'},{zh:'小孩',en:'Child',jp:'子供',kr:'아이',vn:'Trẻ em',th:'เด็ก'}],
-            purpose: [{zh:'生日',en:'B-Day',jp:'誕生日',kr:'생일',vn:'Sinh nhật',th:'วันเกิด'},{zh:'畢業',en:'Grad',jp:'卒業',kr:'졸업',vn:'Tốt nghiệp',th:'รับปริญญา'},{zh:'母親節',en:'Mother',jp:'母の日',kr:'어버이날',vn:'Ngày của mẹ',th:'วันแม่'},{zh:'父親節',en:'Father',jp:'父の日',kr:'스승의날',vn:'Ngày của cha',th:'วันพ่อ'},{zh:'情人節',en:'Valentine',jp:'恋人',kr:'발렌타인',vn:'Tình nhân',th:'วาเลนไทน์'},{zh:'其他',en:'Other',jp:'他',kr:'기타',vn:'Khác',th:'อื่นๆ'}],
-            type: [{zh:'鮮花花束',en:'Bouquet',jp:'花束',kr:'꽃다발',vn:'Bó hoa tươi',th:'ช่อดอกไม้สด'},{zh:'乾燥花束',en:'Dried',jp:'ドライ',kr:'드라이',vn:'Hoa khô',th:'ดอกไม้แห้ง'},{zh:'盆栽',en:'Plant',jp:'鉢植え',kr:'화분',vn:'Chậu cây',th:'กระถางต้นไม้'},{zh:'參考照片',en:'Photo',jp:'写真',kr:'사진',vn:'Ảnh mẫu',th:'รูปภาพอ้างอิง'}],
-            color: [{zh:'紅',en:'Red',jp:'赤',kr:'빨강',vn:'Đỏ',th:'แดง'},{zh:'橙',en:'Org',jp:'橙',kr:'주황',vn:'Cam',th:'ส้ม'},{zh:'黃',en:'Yel',jp:'黃',kr:'노랑',vn:'Vàng',th:'เหลือง'},{zh:'綠',en:'Grn',jp:'綠',kr:'초록',vn:'Xanh lá',th:'เขียว'},{zh:'藍',en:'Blu',jp:'青',kr:'파랑',vn:'Xanh dương',th:'น้ำเงิน'},{zh:'紫',en:'Pur',jp:'紫',kr:'보라',vn:'Tím',th:'ม่วง'},{zh:'白',en:'Wht',jp:'白',kr:'하양',vn:'Trắng',th:'ขาว'},{zh:'黑',en:'Blk',jp:'黑',kr:'검정',vn:'Đen',th:'ดำ'}]
+            day: [{zh:'一',en:'Mon',jp:'月',kr:'월',vn:'Thứ 2',id:'Sen',th:'จันทร์'},{zh:'二',en:'Tue',jp:'火',kr:'화',vn:'Thứ 3',id:'Sel',th:'อังคาร'},{zh:'三',en:'Wed',jp:'水',kr:'수',vn:'Thứ 4',id:'Rab',th:'พุธ'},{zh:'四',en:'Thu',jp:'木',kr:'목',vn:'Thứ 5',id:'Kam',th:'พฤหัส'},{zh:'五',en:'Fri',jp:'金',kr:'금',vn:'Thứ 6',id:'Jum',th:'ศุกร์'},{zh:'六',en:'Sat',jp:'土',kr:'토',vn:'Thứ 7',id:'Sab',th:'เสาร์'},{zh:'日',en:'Sun',jp:'日',kr:'일',vn:'CN',id:'Min',th:'อาทิตย์'}],
+            target: [{zh:'男生',en:'Male',jp:'男性',kr:'남성',vn:'Nam',id:'Pria',th:'ผู้ชาย'},{zh:'女生',en:'Female',jp:'女性',kr:'여성',vn:'Nữ',id:'Wanita',th:'ผู้หญิง'},{zh:'大人',en:'Adult',jp:'大人',kr:'성인',vn:'Người lớn',id:'Dewasa',th:'ผู้ใหญ่'},{zh:'小孩',en:'Child',jp:'子供',kr:'아이',vn:'Trẻ em',id:'Anak',th:'เด็ก'}],
+            purpose: [{zh:'生日',en:'B-Day',jp:'誕生日',kr:'생일',vn:'Sinh nhật',id:'Ultah',th:'วันเกิด'},{zh:'畢業',en:'Grad',jp:'卒業',kr:'졸업',vn:'Tốt nghiệp',id:'Wisuda',th:'รับปริญญา'},{zh:'母親節',en:'Mother',jp:'母の日',kr:'어버이날',vn:'Ngày của mẹ',id:'Hari Ibu',th:'วันแม่'},{zh:'父親節',en:'Father',jp:'父の日',kr:'스승의날',vn:'Ngày của cha',id:'Hari Ayah',th:'วันพ่อ'},{zh:'情人節',en:'Valentine',jp:'恋人',kr:'발렌타인',vn:'Tình nhân',id:'Valentine',th:'วาเลนไทน์'},{zh:'其他',en:'Other',jp:'他',kr:'기타',vn:'Khác',id:'Lainnya',th:'อื่นๆ'}],
+            type: [{zh:'鮮花花束',en:'Bouquet',jp:'花束',kr:'꽃다발',vn:'Bó hoa tươi',id:'Buket Segar',th:'ช่อดอกไม้สด'},{zh:'乾燥花束',en:'Dried',jp:'ドライ',kr:'드라이',vn:'Hoa khô',id:'Buket Kering',th:'ดอกไม้แห้ง'},{zh:'盆栽',en:'Plant',jp:'鉢植え',kr:'화분',vn:'Chậu cây',id:'Tanaman',th:'กระถางต้นไม้'},{zh:'參考照片',en:'Photo',jp:'写真',kr:'사진',vn:'Ảnh mẫu',id:'Foto Ref',th:'รูปภาพอ้างอิง'}],
+            color: [{zh:'紅',en:'Red',jp:'赤',kr:'빨강',vn:'Đỏ',id:'Merah',th:'แดง'},{zh:'橙',en:'Org',jp:'橙',kr:'주황',vn:'Cam',id:'Oranye',th:'ส้ม'},{zh:'黃',en:'Yel',jp:'黃',kr:'노랑',vn:'Vàng',id:'Kuning',th:'เหลือง'},{zh:'綠',en:'Grn',jp:'綠',kr:'초록',vn:'Xanh lá',id:'Hijau',th:'เขียว'},{zh:'藍',en:'Blu',jp:'青',kr:'파랑',vn:'Xanh dương',id:'Biru',th:'น้ำเงิน'},{zh:'紫',en:'Pur',jp:'紫',kr:'보라',vn:'Tím',id:'Ungu',th:'ม่วง'},{zh:'白',en:'Wht',jp:'白',kr:'하양',vn:'Trắng',id:'Putih',th:'ขาว'},{zh:'黑',en:'Blk',jp:'黑',kr:'검정',vn:'Đen',id:'Hitam',th:'ดำ'}]
         };
 
         const translations = {
             jp: { name: "/ 氏名", phone: "/ 電話", date: "/ 日付", time: "/ 時間", day_label: "/ 曜日", target_label: "/ 対象", purpose_label: "/ 目的", type_label: "/ 種類", fcolor_label: "/ 花色", wcolor_label: "/ 包装色", note: "/ 備考", balance: "残高", hint_photo: "参考画像がある場合は、提示してください。", hint_bag: "1000元以上お買い上げで専用バッグをプレゼント。" },
             kr: { name: "/ 이름", phone: "/ 전화", date: "/ 날짜", time: "/ 시간", day_label: "/ 요일", target_label: "/ 대상", purpose_label: "/ 목적", type_label: "/ 유형", fcolor_label: "/ 꽃색", wcolor_label: "/ 포장색", note: "/ 메모", balance: "잔액", hint_photo: "참고 사진이 있으면 선생님께 보여주세요.", hint_bag: "1000원 이상 구매 시 전용 쇼핑백 증정." },
             vn: { name: "/ Họ tên", phone: "/ SĐT", date: "/ Ngày", time: "/ Giờ", day_label: "/ Thứ", target_label: "/ Đối tượng", purpose_label: "/ Mục đích", type_label: "/ Loại", fcolor_label: "/ Màu hoa", wcolor_label: "/ Màu giấy", note: "/ Ghi chú", balance: "Số dư", hint_photo: "Vui lòng cho giáo viên xem ảnh tham khảo.", hint_bag: "Đơn hàng trên $1000 tặng túi đựng hoa." },
+            id: { name: "/ Nama", phone: "/ No HP", date: "/ Tanggal", time: "/ Waktu", day_label: "/ Hari", target_label: "/ Target", purpose_label: "/ Tujuan", type_label: "/ Jenis", fcolor_label: "/ Warna Bunga", wcolor_label: "/ Warna Kertas", note: "/ Catatan", balance: "Sisa", hint_photo: "Mohon tunjukkan foto referensi kepada guru.", hint_bag: "Gratis kantong bunga untuk pesanan di atas $1000." },
             th: { name: "/ ชื่อ", phone: "/ โทร", date: "/ วันที่", time: "/ เวลา", day_label: "/ วัน", target_label: "/ ผู้รับ", purpose_label: "/ วัตถุประสงค์", type_label: "/ ประเภท", fcolor_label: "/ สีดอกไม้", wcolor_label: "/ สีห่อ", note: "/ หมายเหตุ", balance: "ยอดคงเหลือ", hint_photo: "หากมีรูปภาพอ้างอิง โปรดแสดงให้ครูดู", hint_bag: "ยอดซื้อครบ $1000 ฟรีถุงใส่ดอกไม้" }
         };
 
-        // --- 初始化功能 ---
-        function initTags(lang = "") {
-            renderSection('day-tags', config.day, lang, 'day');
-            renderSection('target-tags', config.target, lang, 'target');
-            renderSection('purpose-tags', config.purpose, lang, 'purpose');
-            renderSection('type-tags', config.type, lang, 'type');
-            renderSection('fcolor-tags', config.color, lang, 'fcolor');
-            renderSection('wcolor-tags', config.color, lang, 'wcolor');
-        }
-
-        function renderSection(id, data, lang, cat) {
-            const container = document.getElementById(id);
-            const activeValues = Array.from(container.querySelectorAll('.active')).map(b => b.getAttribute('data-zh'));
-            container.innerHTML = '';
+        function initTags(lang = "") { renderSection('day-tags',config.day,lang,'day'); renderSection('target-tags',config.target,lang,'target'); renderSection('purpose-tags',config.purpose,lang,'purpose'); renderSection('type-tags',config.type,lang,'type'); renderSection('fcolor-tags',config.color,lang,'fcolor'); renderSection('wcolor-tags',config.color,lang,'wcolor'); }
+        function renderSection(id,data,lang,cat) {
+            const container = document.getElementById(id); const activeValues = Array.from(container.querySelectorAll('.active')).map(b => b.getAttribute('data-zh')); container.innerHTML = '';
             data.forEach(item => {
-                const btn = document.createElement('button');
-                btn.className = 'tag-btn' + (activeValues.includes(item.zh) ? ' active' : '');
-                btn.setAttribute('data-zh', item.zh);
-                btn.onclick = () => {
-                    if (cat === 'day' || cat === 'type') {
-                        container.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                    } else { btn.classList.toggle('active'); }
-                };
-                let html = `<span>${item.zh} / ${item.en}</span>`;
-                if (lang && item[lang]) html += `<span class="lang-extra">${item[lang]}</span>`;
-                btn.innerHTML = html;
-                container.appendChild(btn);
+                const btn = document.createElement('button'); btn.className = 'tag-btn' + (activeValues.includes(item.zh) ? ' active' : ''); btn.setAttribute('data-zh', item.zh);
+                btn.onclick = () => { if (cat === 'day' || cat === 'type') { container.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); } else { btn.classList.toggle('active'); } };
+                let html = `<span>${item.zh} / ${item.en}</span>`; if (lang && item[lang]) html += `<span class="lang-extra">${item[lang]}</span>`;
+                btn.innerHTML = html; container.appendChild(btn);
             });
         }
 
-        // --- 事件監聽 ---
         document.getElementById('lang-selector').addEventListener('change', (e) => {
-            const lang = e.target.value;
-            initTags(lang);
-            document.querySelectorAll('.extra-lang').forEach(el => {
-                const key = el.getAttribute('data-key');
-                el.innerText = (lang && translations[lang][key]) ? translations[lang][key] : "";
-            });
+            const lang = e.target.value; initTags(lang);
+            document.querySelectorAll('.extra-lang').forEach(el => { const key = el.getAttribute('data-key'); el.innerText = (lang && translations[lang][key]) ? translations[lang][key] : ""; });
         });
 
-        // 初始化時間下拉 (08:00 - 20:00)
         const timeSelect = document.getElementById('time-select');
-        for (let h = 8; h <= 20; h++) {
-            ['00', '30'].forEach(m => {
-                if (h === 20 && m === '30') return;
-                const t = `${h.toString().padStart(2, '0')}:${m}`;
-                timeSelect.add(new Option(t, t));
-            });
-        }
+        for (let h = 8; h <= 20; h++) { ['00', '30'].forEach(m => { if (h === 20 && m === '30') return; const t = `${h.toString().padStart(2, '0')}:${m}`; timeSelect.add(new Option(t, t)); }); }
 
-        function calcBalance() {
-            const total = parseFloat(document.getElementById('price-total').value) || 0;
-            const deposit = parseFloat(document.getElementById('price-deposit').value) || 0;
-            document.getElementById('price-balance').value = `$ ${total - deposit}`;
-        }
+        function calcBalance() { const total = parseFloat(document.getElementById('price-total').value) || 0; const deposit = parseFloat(document.getElementById('price-deposit').value) || 0; document.getElementById('price-balance').value = `$ ${total - deposit}`; }
 
-        // --- 生成圖片核心 ---
         async function generateImage() {
-            const area = document.getElementById('capture-area');
-            const btn = event.target;
-            btn.innerText = "正在處理...";
-            btn.disabled = true;
-
-            // 1. 同步輸入框內容到隱藏文字層
-            document.querySelectorAll('.input-wrapper').forEach(wrapper => {
-                const input = wrapper.querySelector('.input-field');
-                const textDiv = wrapper.querySelector('.capture-text');
-                if (input && textDiv) {
-                    textDiv.innerText = input.value || "—";
-                }
-            });
-
-            // 2. 切換為截圖顯示模式
+            const area = document.getElementById('capture-area'); const btn = event.target; btn.innerText = "Processing..."; btn.disabled = true;
+            document.querySelectorAll('.input-wrapper').forEach(wrapper => { const input = wrapper.querySelector('.input-field'); const textDiv = wrapper.querySelector('.capture-text'); if (input && textDiv) { textDiv.innerText = input.value || "—"; } });
             area.classList.add('is-capturing');
-
-            try {
-                const canvas = await html2canvas(area, { 
-                    scale: 3, 
-                    backgroundColor: "#ffffff",
-                    useCORS: true
-                });
-                
-                const link = document.createElement('a');
-                link.download = `LeafFlower-Order-${Date.now()}.png`;
-                link.href = canvas.toDataURL("image/png");
-                link.click();
-            } catch(e) {
-                alert("圖片生成失敗，請檢查網路連線。");
-            } finally {
-                area.classList.remove('is-capturing');
-                btn.innerText = "生成訂單圖片";
-                btn.disabled = false;
-            }
+            try { const canvas = await html2canvas(area, { scale: 3, backgroundColor: "#ffffff", useCORS: true }); const link = document.createElement('a'); link.download = `LeafFlower-Order-${Date.now()}.png`; link.href = canvas.toDataURL("image/png"); link.click(); } catch(e) { alert("Error!"); } finally { area.classList.remove('is-capturing'); btn.innerText = "生成訂單圖片"; btn.disabled = false; }
         }
 
-        // 初始化
         document.getElementById('display-date').innerText = new Date().toLocaleDateString();
         initTags();
     </script>
